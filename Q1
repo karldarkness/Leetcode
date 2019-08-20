@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> x{0,0};
+        int size = nums.size();
+        for(int i=0; i<size; i++)
+        {
+            for(int j=i+1; j<size; j++)
+            {
+                if(nums[i]+nums[j] == target)
+                {
+                    x[0] = i;
+                    x[1] = j;
+                    return x;
+                }
+            }
+        }
+        return x;
+    }
+};
+//时间复杂度更低的一种策略是快排+两侧逼近(O(nlogn)+O(n))，但在size较小时没有必要。
