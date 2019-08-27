@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int reverse(int x) {
+        int xArray[10] = {0}, intMaxArray[10];
+        int intMax = 0x7FFFFFFF, intMin = 0x80000000;
+        int isNegative = 0;
+        if(x<0)
+        {
+            if(x==intMin)
+                return 0;
+            else
+            {
+                x *= -1;
+                isNegative = 1;
+            }
+        }
+        
+        int i = 0;
+        while(x>0)
+        {
+            xArray[i] = x % 10;
+            x /= 10;
+            intMaxArray[i] = intMax % 10;
+            intMax /= 10;
+            i++;
+        }
+        int level = i;
+        
+        if(level == 10)
+        {
+            for(i=0; i<10; i++)
+            {
+                if(xArray[i] > intMaxArray[9-i])
+                    return 0;
+                else if(xArray[i] < intMaxArray[9-i])
+                    break;
+            }
+        }
+        
+        int y = 0;
+        for(i=0; i<level; i++)
+        {
+            y *= 10;
+            y += xArray[i];
+        }
+        if(isNegative)
+            y *= -1;
+        return y;
+    }
+};

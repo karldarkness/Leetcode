@@ -1,0 +1,70 @@
+class Solution {
+public:
+    int myAtoi(string str) {
+        int strLen = str.length();
+        int x = 0;
+        int isNegative = 0;
+        int i;
+        for(i=0; i<strLen; i++)
+        {
+            if(str[i]==' ')
+                continue;
+            else if(str[i]=='+')
+                break;
+            else if(str[i]=='-')
+            {
+                isNegative = 1;
+                break;
+            }
+            else if(str[i]>='0' && str[i]<='9')
+            {
+                x += str[i] - '0';
+                break;
+            }
+            else
+                return 0;
+        }
+        
+        const int almostMax = 0x7FFFFFFF/10;
+        for(i++; i<strLen; i++)
+        {
+            if(str[i]>='0' && str[i]<='9')
+            {
+                if(x < almostMax)
+                {
+                    x *= 10;
+                    x += str[i] - '0';
+                }
+                else if(x == almostMax)
+                {
+                    if(isNegative)
+                    {
+                        if(x*-10 - 0x80000000 > str[i] - '0')
+                            x = x*10 + (str[i] - '0');
+                        else
+                            return 0x80000000;
+                    }
+                    else
+                    {
+                        if(0x7FFFFFFF - x*10 > str[i] - '0')
+                            x = x*10 + (str[i] - '0');
+                        else
+                            return 0x7FFFFFFF;
+                    }
+                }
+                else
+                {
+                    if(isNegative)
+                        return 0x80000000;
+                    else
+                        return 0x7FFFFFFF;
+                }
+            }
+            else
+                break;
+        }
+        if(isNegative)
+            x *= -1;
+        return x;
+    }
+};

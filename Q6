@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int strLen = s.length();
+        if(numRows == 1)
+            return s;
+        
+        int groupNums = 2*(numRows-1);
+        string newS;
+        for(int i=0; i<numRows; i++)
+        {
+            if(i==0 || i==numRows-1)
+            {
+                for(int j=i; j<strLen; j+=groupNums)
+                {
+                    newS += s[j];
+                }
+            }
+            else
+            {
+                int state = i*2;
+                for(int j=i; j<strLen; j+=state)
+                {
+                    newS += s[j];
+                    state = groupNums-state;
+                }
+            }
+        }
+        return newS;
+    }
+};
