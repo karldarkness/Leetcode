@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int sLen = s.length(), pLen = p.length();
+        bool** partMatch = new bool* [sLen+1];
+        for(int i=0; i<sLen+1; i++)
+            partMatch[i] = new bool [pLen+1];
+        for(int i=0; i<sLen+1; i++)
+            for(int j=0; j<pLen+1; j++)
+                partMatch[i][j] = false;
+        
+        partMatch[0][0] = true;
+        for(int i=1; i<pLen; i+=2)
+            if(p[i]=='*' && partMatch[0][i-1])
+                partMatch[0][i+1] = true;
+            
+        for(int i=0; i<sLen; i++)
+        {
+            for(int j=0; j<pLen; j++)
+            {
+                if(s[i]==p[j] || p[j]=='.')
+                    partMatch[i+1][j+1] = partMatch[i][j];
+                else if(p[j]=='*')
+                {
+                    if(p[j-1]!=s[i] && p[j-1]!='.')
+                        partMatch[i+1][j+1] = partMatch[i+1][j-1];
+                    else
+                    {
+                        partMatch[i+1][j+1] = partMatch[i+1][j-1] || partMatch[i][j+1];
+                    }
+                }
+            }
+        }
+            
+        return partMatch[sLen][pLen];
+    }
+};

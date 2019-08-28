@@ -1,0 +1,67 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        int n4 = num / 1000;
+        int n3 = num % 1000 / 100;
+        int n2 = num % 100 / 10;
+        int n1 = num % 10;
+        
+        string s;
+        for(int i=0; i<n4; i++)
+            s += 'M';
+        //n4
+        
+        if(n3 == 9)
+            s += "CM";
+        else if(n3 >= 5)
+        {
+            s += 'D';
+            for(int i=0; i<n3-5; i++)
+                s += 'C';
+        }
+        else if(n3 == 4)
+            s += "CD";
+        else
+        {
+            for(int i=0; i<n3; i++)
+                s += 'C';
+        }
+        //n3
+        
+        if(n2 == 9)
+            s += "XC";
+        else if(n2 >= 5)
+        {
+            s += 'L';
+            for(int i=0; i<n2-5; i++)
+                s += 'X';
+        }
+        else if(n2 == 4)
+            s += "XL";
+        else
+        {
+            for(int i=0; i<n2; i++)
+                s += 'X';
+        }
+        //n2
+        
+        if(n1 == 9)
+            s += "IX";
+        else if(n1 >= 5)
+        {
+            s += 'V';
+            for(int i=0; i<n1-5; i++)
+                s += 'I';
+        }
+        else if(n1 == 4)
+            s += "IV";
+        else
+        {
+            for(int i=0; i<n1; i++)
+                s += 'I';
+        }
+        //n1
+        
+        return s;
+    }
+};

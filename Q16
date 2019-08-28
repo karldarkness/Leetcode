@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int size = nums.size();
+        Qsort(nums, 0, size-1);
+        
+        int i,j,k;
+        int sum, bestSum = nums[0]+nums[1]+nums[2];
+        for(int i=0; i<size-2; i++)
+        {
+            j = i+1;
+            k = size-1;
+            while(j<k)
+            {
+                sum = nums[i]+nums[j]+nums[k];
+                if(abs(sum-target) < abs(bestSum-target))
+                {
+                    bestSum = sum;
+                }
+                if(sum>target)
+                    k--;
+                else
+                    j++;
+            }
+        }
+        return bestSum;
+    }
+    
+    void Qsort(vector<int>&nums, int begin, int end)
+    {
+        if(begin >= end)
+            return;
+        int i = begin, j = end;
+        int key = nums[begin];
+        int temp;
+        while(true)
+        {
+            while(nums[i] <= key)
+            {
+                i++;
+                if(i==end)
+                    break;
+            }
+            while(nums[j] >= key)
+            {
+                j--;
+                if(j==begin)
+                    break;
+            }
+            if(i>=j)
+                break;
+            temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        temp = nums[begin];
+        nums[begin] = nums[j];
+        nums[j] = temp;
+        Qsort(nums, begin, j-1);
+        Qsort(nums, j+1, end);
+    }
+};
