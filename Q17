@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        int strLen = digits.length();
+        vector<string> numToStr {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string> strArray;
+        
+        if(strLen == 0)
+            return strArray;
+        
+        strArray.push_back("");
+        for(int i=0; i<strLen; i++)
+        {
+            string s = numToStr[digits[i]-'2'];
+            int sLen = s.length();
+            int strArraySize = strArray.size();
+            for(int j=0; j<strArraySize; j++)
+            {
+                for(int k=0; k<sLen; k++)
+                {
+                    strArray.push_back(strArray[j]+s[k]);
+                }
+            }
+            strArray.erase(strArray.begin(), strArray.begin()+strArraySize);
+        }
+        
+        return strArray;
+    }
+};
