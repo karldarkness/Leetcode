@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string> v; 
+    int N;
+    void strAdd(int left, int right, string S)
+    {
+        if(left > N)
+            return;
+        if(left < right)
+            return;
+        if(left == N && right == N)
+        {
+            v.push_back(S);
+        }
+        else
+        {
+            strAdd(left+1, right, S+'(');
+            strAdd(left, right+1, S+')');
+        }
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        N = n;
+        strAdd(0,0,"");
+        return v;
+    }
+};
